@@ -1,8 +1,45 @@
 {
 	"folders": [
 		{
-			"path": "frame-boy"
+			"path": "frame-boy",
+			"name": "Frame Boy"
+		},
+		{
+			"path": "frame-boy-vue",
+			"name": "Frame Boy Vue"
 		}
 	],
-	"settings": {}
+	"settings": {},
+	"launch": {
+		"version": "0.2.0",
+		"compounds": [
+		  {
+			"name": "Application",
+			"configurations": ["Main only", "Renderer only"],
+			"stopAll": true
+		  }
+		],
+		"configurations": [
+		  {
+			"name": "Renderer only",
+			"port": 9222,
+			"request": "attach",
+			"type": "chrome",
+			"webRoot": "${workspaceFolder:Frame Boy}"
+		  },
+		  {
+			"name": "Main only",
+			"type": "node",
+			"request": "launch",
+			"cwd": "${workspaceFolder:Frame Boy}",
+			"runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+			"windows": {
+			  "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
+			},
+			"args": [".", "--remote-debugging-port=9222"],
+			"outputCapture": "std",
+			"console": "integratedTerminal"
+		  }
+		]
+	  }
 }
