@@ -4,7 +4,7 @@
 </template>
 
 <script setup lang="ts">
-import ApplicationFooter from './components/application-footer.vue';
+import ApplicationFooter from './components/main/application-footer.vue';
 import { useQuasar } from 'quasar';
 
 const $q = useQuasar();
