@@ -1,50 +1,92 @@
 <template>
-<div class="dashboard">
-    <div class="card test1" @mousemove.passive="onMouseMove">This a test card</div>
-    <div class="card test2">I'm also a test card</div>
+<div ref="dashboardElement" class="dashboard" @mousemove.passive="onMouseMove" @touchmove="onMouseMove" @touchend="onMouseUp" @mouseup.passive="onMouseUp" @mouseleave.passive="onMouseUp">
+    <card class="test1" @touchstart="onMouseDown" @mousedown.passive="onMouseDown">This a test card</card>
+    <card class="test2" @touchstart="onMouseDown" @mousedown.passive="onMouseDown">I'm also a test card</card>
 </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import Card from '../components/dashboard/card.vue';
 
-const onMouseMove = (e: MouseEvent) => {
-    if (e.buttons === 1) {
-        if (e.target == null) { return; }
-        const target = e.target as HTMLElement;
+const minimumColumnWidth = 100;
+const minimumColumnWidthStyle = computed(() => `${minimumColumnWidth}px`);
+const gridGapPixelWidth = parseFloat(getComputedStyle(document.documentElement).fontSize); // 1rem
+const gridGapPixelWidthStyle = '1rem';
+const dashboardElement = ref<HTMLElement>();
+const currentDraggingCard = ref<HTMLElement>();
+const currentDraggingCardMousePositionDiff = ref<{ x: number, y: number }>();
 
-        const columnCount = Math.round(document.body.clientWidth / (100 + remToPixel()));
-        const totalGap = columnCount * remToPixel();
-        console.log(columnCount);
-        
-        // Set the target grid column to the nearest column to the mouse
-        const startColumn = Math.round((e.clientX - (target.clientWidth / 2)) / 100);
-        target.style.gridColumn = `${startColumn} / ${startColumn + 2}`;
+const onMouseDown = (e: MouseEvent | TouchEvent) => {
+    const target = e.target as HTMLElement;
+    if (target == null || ((e as TouchEvent)?.touches?.length ?? 0) < 1) {
+        currentDraggingCard.value = undefined;
+        return;
+    }
+
+    const clientX = ((e as TouchEvent)?.touches[0]?.clientX ?? (e as MouseEvent)?.clientX) ?? 0;
+    const clientY = ((e as TouchEvent)?.touches[0]?.clientY ?? (e as MouseEvent)?.clientY) ?? 0;
+
+    currentDraggingCard.value = target;
+    currentDraggingCardMousePositionDiff.value = {
+        x: clientX - target.offsetLeft,
+        y: clientY - target.offsetTop
+    };
+    target.classList.add('dragging');
+}
+
+const onMouseMove = (e: MouseEvent | TouchEvent) => {
+    if ((e as MouseEvent)?.buttons ?? 1 === 1) {
+        if (currentDraggingCard.value == null
+            || dashboardElement.value == null
+            || currentDraggingCardMousePositionDiff.value == null
+        ) { return; }
+        const target = currentDraggingCard.value;
+        const clientX = ((e as TouchEvent)?.touches[0]?.clientX ?? (e as MouseEvent)?.clientX) ?? 0;
+        const clientY = ((e as TouchEvent)?.touches[0]?.clientY ?? (e as MouseEvent)?.clientY) ?? 0;
+
+        const cardColumnSize = 2; // TODO: Get this from the card itself
+        const cardRowSize = 2; // TODO: Get this from the card itself
+
+        // Calculate the center of the card relative to the mouse position
+        const centerPositionX = clientX - currentDraggingCardMousePositionDiff.value.x;
+        const centerPositionY = clientY - currentDraggingCardMousePositionDiff.value.y;
+
+        // Set the calculated cell position css
+        target.style.gridColumn = calculateCellPosition(centerPositionX, dashboardElement.value.clientWidth, cardColumnSize);
+        target.style.gridRow = calculateCellPosition(centerPositionY, dashboardElement.value.clientHeight, cardRowSize);
     }
 }
 
-const remToPixel = () => {    
-    return parseFloat(getComputedStyle(document.documentElement).fontSize);
+const onMouseUp = (e: MouseEvent | TouchEvent) => {
+    if (currentDraggingCard.value != null) {
+        currentDraggingCard.value.classList.remove('dragging');
+    }
+    currentDraggingCard.value = undefined;
 }
+
+const calculateCellPosition = (centerPosition: number, parentSize: number, cellSize: number) => {
+    // Calculate the number of columns on document.body.clientWidth (with tableGapPixelWidth gap in between)
+    const cellCount = Math.floor((parentSize + gridGapPixelWidth) / (minimumColumnWidth + gridGapPixelWidth));
+
+    // Calculate the nearest column to the center of the card
+    let startColumn = Math.round((centerPosition / (parentSize / cellCount)) + 1);
+    startColumn = Math.min(cellCount - cellSize + 1, startColumn);
+    startColumn = Math.max(1, startColumn);
+
+    // Return the value as css
+    return `${startColumn} / ${startColumn + cellSize}`;
+}
+
 </script>
 
 <style lang="scss" scoped>
 .dashboard {
     // Dynamic grid depending on page size
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(v-bind(minimumColumnWidthStyle), 1fr));
     grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 1rem;
+    gap: v-bind(gridGapPixelWidthStyle);
     position: relative;
-
-    > .card {
-        background-color: darkolivegreen;
-    }
-
-    > .test1 {
-        grid-column: 4 / 6;
-        grid-row: 3 / 5;
-        background-color: darkslateblue;
-    }
 }
 </style>
