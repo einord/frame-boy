@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import Card from '../components/dashboard/card.vue';
 
 const minimumColumnWidth = 100;
@@ -18,14 +18,17 @@ const currentDraggingCard = ref<HTMLElement>();
 const currentDraggingCardMousePositionDiff = ref<{ x: number, y: number }>();
 
 const onMouseDown = (e: MouseEvent | TouchEvent) => {
+    const touchEvent = e as TouchEvent;
+    const mouseEvent = e as MouseEvent;
     const target = e.target as HTMLElement;
-    if (target == null || ((e as TouchEvent)?.touches?.length ?? 0) < 1) {
+
+    if (target == null || (touchEvent.touches != null && (touchEvent?.touches?.length ?? 0) < 1)) {
         currentDraggingCard.value = undefined;
         return;
     }
 
-    const clientX = ((e as TouchEvent)?.touches[0]?.clientX ?? (e as MouseEvent)?.clientX) ?? 0;
-    const clientY = ((e as TouchEvent)?.touches[0]?.clientY ?? (e as MouseEvent)?.clientY) ?? 0;
+    const clientX = touchEvent?.touches == null ? mouseEvent.clientX : touchEvent.touches[0].clientX;
+    const clientY = touchEvent?.touches == null ? mouseEvent.clientY : touchEvent.touches[0].clientY;
 
     currentDraggingCard.value = target;
     currentDraggingCardMousePositionDiff.value = {
@@ -36,14 +39,18 @@ const onMouseDown = (e: MouseEvent | TouchEvent) => {
 }
 
 const onMouseMove = (e: MouseEvent | TouchEvent) => {
-    if ((e as MouseEvent)?.buttons ?? 1 === 1) {
+    const touchEvent = e as TouchEvent;
+    const mouseEvent = e as MouseEvent;
+
+    if (mouseEvent?.buttons ?? 1 === 1) {
         if (currentDraggingCard.value == null
             || dashboardElement.value == null
             || currentDraggingCardMousePositionDiff.value == null
         ) { return; }
+        
         const target = currentDraggingCard.value;
-        const clientX = ((e as TouchEvent)?.touches[0]?.clientX ?? (e as MouseEvent)?.clientX) ?? 0;
-        const clientY = ((e as TouchEvent)?.touches[0]?.clientY ?? (e as MouseEvent)?.clientY) ?? 0;
+        const clientX = touchEvent?.touches == null ? mouseEvent.clientX : touchEvent.touches[0].clientX;
+        const clientY = touchEvent?.touches == null ? mouseEvent.clientY : touchEvent.touches[0].clientY;
 
         const cardColumnSize = 2; // TODO: Get this from the card itself
         const cardRowSize = 2; // TODO: Get this from the card itself
@@ -77,6 +84,20 @@ const calculateCellPosition = (centerPosition: number, parentSize: number, cellS
     // Return the value as css
     return `${startColumn} / ${startColumn + cellSize}`;
 }
+
+const loadSettingsTest = async() => {
+    if (await window.settings.has('test.name')) {
+        const name = await window.settings.get('test.name');
+        console.log(`Settings loaded: ${name}`);
+    } else {
+        await window.settings.set('test.name', 'This is a test');
+        console.log('Settings saved');
+    }
+}
+
+onMounted(async() => {
+    await loadSettingsTest();
+});
 
 </script>
 

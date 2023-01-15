@@ -1,71 +1,77 @@
-import { app, BrowserWindow, nativeTheme } from 'electron';
+import { app, BrowserWindow, ipcMain, nativeTheme } from 'electron';
 import { initialize, enable } from '@electron/remote/main';
 import path from 'path';
 import os from 'os';
+import { addModulesToIpcMain } from './modules';
+
+console.log('APPDATA PATH: ' + app.getPath('appData'));
 
 // needed in case process is undefined under Linux
 const platform = process.platform || os.platform();
 
 try {
-  if (platform === 'win32' && nativeTheme.shouldUseDarkColors === true) {
-    require('fs').unlinkSync(
-      path.join(app.getPath('userData'), 'DevTools Extensions')
-    );
-  }
-} catch (_) {}
+    if (platform === 'win32' && nativeTheme.shouldUseDarkColors === true) {
+        require('fs').unlinkSync(
+            path.join(app.getPath('userData'), 'DevTools Extensions')
+        );
+    }
+} catch (_) { }
 
 initialize();
 
 let mainWindow: BrowserWindow | undefined;
 
 function createWindow() {
-  /**
-   * Initial window options
-   */
-  mainWindow = new BrowserWindow({
-    icon: path.resolve(__dirname, 'icons/icon.png'), // tray icon
-    width: 1000,
-    height: 600,
-    useContentSize: true,
-    webPreferences: {
-      contextIsolation: true,
-      // More info: https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/electron-preload-script
-      preload: path.resolve(__dirname, process.env.QUASAR_ELECTRON_PRELOAD),
-      sandbox: false
-    },
-  });
-
-  mainWindow.loadURL(process.env.APP_URL);
-
-  if (process.env.DEBUGGING) {
-    // if on DEV or Production with debug enabled
-    mainWindow.webContents.openDevTools();
-  } else {
-    // we're on production; no access to devtools pls
-    mainWindow.webContents.on('devtools-opened', () => {
-      mainWindow?.webContents.closeDevTools();
+    /**
+     * Initial window options
+     */
+    mainWindow = new BrowserWindow({
+        icon: path.resolve(__dirname, 'icons/icon.png'), // tray icon
+        width: 1000,
+        height: 600,
+        useContentSize: true,
+        webPreferences: {
+            // contextIsolation: true,
+            // More info: https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/electron-preload-script
+            preload: path.resolve(__dirname, process.env.QUASAR_ELECTRON_PRELOAD),
+            // sandbox: false
+        },
     });
-  }
 
-  mainWindow.on('closed', () => {
-    mainWindow = undefined;
-  });
+    // Add main thread modules to ipcMain
+    addModulesToIpcMain();
+
+    mainWindow.loadURL(process.env.APP_URL);
+
+    if (process.env.DEBUGGING) {
+        // if on DEV or Production with debug enabled
+        mainWindow.webContents.openDevTools();
+    } else {
+        // we're on production; no access to devtools pls
+        mainWindow.webContents.on('devtools-opened', () => {
+            mainWindow?.webContents.closeDevTools();
+        });
+    }
+
+    mainWindow.on('closed', () => {
+        mainWindow = undefined;
+    });
 }
 
 app.whenReady().then(createWindow);
 
 app.on('window-all-closed', () => {
-  if (platform !== 'darwin') {
-    app.quit();
-  }
+    if (platform !== 'darwin') {
+        app.quit();
+    }
 });
 
 app.on('activate', () => {
-  if (mainWindow === undefined) {
-    createWindow();
-  }
+    if (mainWindow === undefined) {
+        createWindow();
+    }
 });
 
 app.on('browser-window-created', (_, window) => {
-  require("@electron/remote/main").enable(window.webContents)
+    require("@electron/remote/main").enable(window.webContents)
 });

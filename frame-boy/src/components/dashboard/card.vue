@@ -22,7 +22,7 @@
     &.dragging {
         background-color: hsla(100, 100%, 100%, 10%);
         transform: scale(1.1);
-        box-shadow: 0.25rem 0.25rem 0.25rem 0 rgba(255, 255, 255, 0.1);
+        box-shadow: 0.25rem 0.25rem 0.25rem 0 rgba(255, 255, 255, 0.05);
     }
 }
 </style>

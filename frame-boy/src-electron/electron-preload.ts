@@ -28,12 +28,10 @@
  * }
  */
 
-import { contextBridge, FileFilter } from 'electron';
-import { dialog } from '@electron/remote';
-// 'electronApi' will be available on the global window context
-contextBridge.exposeInMainWorld('electronApi', {
-  openFileDialog: async (title: string, folder: any, filters: FileFilter[]) => {
-    // calling showOpenDialog from Electron API: https://www.electronjs.org/docs/latest/api/dialog/
-    const response = await dialog.showOpenDialog({ title, filters, properties: ['openFile', 'multiSelections'], }); return response.filePaths;
-  }
+import { contextBridge, ipcRenderer } from 'electron';
+
+contextBridge.exposeInMainWorld('settings', {
+    has: (key: string) => ipcRenderer.invoke('appSettings.has', key),
+    get: (key: string) => ipcRenderer.invoke('appSettings.get', key),
+    set: (key: string, value: any) => ipcRenderer.invoke('appSettings.set', key, value)
 });
