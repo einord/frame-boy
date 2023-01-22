@@ -12,28 +12,36 @@
 // to match your app's branding.
 // Tip: Use the "Theme Builder" on Quasar's documentation website.
 
-$primary   : #326496;
-$secondary : #a65326;
-$accent    : #dbce7b;
+$color-primary   : #326496;
+$color-secondary : #a65326;
+$color-accent    : #dbce7b;
 
-$dark      : #3b3b3b;
-$dark-page : #000000;
+$color-dark      : #3b3b3b;
+$color-dark-page : #000000;
 
-$light     : #f0f0f0;
-$white     : #ffffff;
+$color-grey: hsl(0, 0%, 50%);
 
-$positive  : #7ac28b;
-$negative  : #b03846;
-$info      : #7a7a7a;
-$warning   : #F2C037;
+$color-light     : #f0f0f0;
+$color-white     : #ffffff;
 
-$text-color: $light; // TODO: Make text color dynamic
-$text-color-hover: $white; // TODO: Make text color dynamic
+$color-positive  : #7ac28b;
+$color-negative  : #b03846;
+$color-info      : #7a7a7a;
+$color-warning   : #F2C037;
+
+$text-color: $color-light; // TODO: Make text color dynamic
+$text-color-hover: $color-white; // TODO: Make text color dynamic
 
 $hover-background: #333333;
 
+$font-size-large: 1.5rem;
 $font-size-normal: 1rem;
 $font-size-small: 0.75rem;
 $font-size-tiny: 0.5em;
+
+$spacing-tiny: 0.25em;
+$spacing-small: 0.5em;
+$spacing-medium: 1em;
+$spacing-large: 2em;
 
 $border-radius: 0.5em;
