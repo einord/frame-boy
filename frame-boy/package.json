@@ -10,6 +10,10 @@
     "serve": "quasar dev -m electron"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/free-brands-svg-icons": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@fortawesome/vue-fontawesome": "^3.0.2",
     "electron-settings": "^4.0.2",
     "quasar": "^2.6.0",
     "vue": "^3.0.0",

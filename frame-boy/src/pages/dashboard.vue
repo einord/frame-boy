@@ -86,13 +86,13 @@ const calculateCellPosition = (centerPosition: number, parentSize: number, cellS
 }
 
 const loadSettingsTest = async() => {
-    if (await window.settings.has('test.name')) {
-        const name = await window.settings.get('test.name');
-        console.log(`Settings loaded: ${name}`);
-    } else {
-        await window.settings.set('test.name', 'This is a test');
-        console.log('Settings saved');
-    }
+    // if (await window.settings.has('test.name')) {
+    //     const name = await window.settings.get('test.name');
+    //     console.log(`Settings loaded: ${name}`);
+    // } else {
+    //     await window.settings.set('test.name', 'This is a test');
+    //     console.log('Settings saved');
+    // }
 }
 
 onMounted(async() => {

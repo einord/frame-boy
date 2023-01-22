@@ -19,7 +19,7 @@ export function addModulesToIpcMain() {
         for (const handle of module.availableInRenderProcess) {
             const channel = `${module.moduleKey}.${handle.toString()}`;
             console.log('Adding channel: ' + channel);
-            ipcMain.handle(channel, (event, ...args) => module[handle](...args));
+            ipcMain.handle(channel, (event, ...args) => (module as any)[handle](...args));
         }
     }
 }

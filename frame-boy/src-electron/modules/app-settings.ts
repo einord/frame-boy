@@ -1,5 +1,5 @@
 import { app } from 'electron';
-import { access, exists, mkdir, readFile, writeFile } from 'fs';
+import { access, mkdir, readFile, writeFile } from 'fs';
 import { MainModule } from '.';
 
 export interface AppSettingsServiceFunctions {
@@ -30,7 +30,7 @@ export class AppSettingsService implements AppSettingsServiceFunctions, MainModu
             if (!currentProperty.hasOwnProperty(property)) {
                 return false;
             }
-            currentProperty = currentProperty[property];
+            currentProperty = (currentProperty as any)[property];
         }
 
         // If we end up here, the property exists
@@ -44,7 +44,7 @@ export class AppSettingsService implements AppSettingsServiceFunctions, MainModu
         // Recursively get the property
         let currentProperty = appSettings;
         for (const property of propertyChain) {
-            currentProperty = currentProperty[property];
+            currentProperty = (currentProperty as any)[property];
         }
 
         // If we end up here, the property exists and we expect it to be of type T
@@ -62,13 +62,13 @@ export class AppSettingsService implements AppSettingsServiceFunctions, MainModu
             const property = propertyChain[i];
             lastProperty = property;
             if (!currentProperty.hasOwnProperty(property)) {
-                currentProperty[property] = {};
+                (currentProperty as any)[property] = {};
             }
-            currentProperty = currentProperty[property];
+            currentProperty = (currentProperty as any)[property];
         }
 
         // If we end up here, the property exists and we expect it to be of type T
-        currentProperty[propertyChain[propertyChain.length - 1]] = value;
+        (currentProperty as any)[propertyChain[propertyChain.length - 1]] = value;
         await this.saveFile(appSettings);
     }
 

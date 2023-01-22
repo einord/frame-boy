@@ -24,6 +24,7 @@ module.exports = configure(function (/* ctx */) {
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
     boot: [
       'i18n',
+      'fa'
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
@@ -48,7 +49,7 @@ module.exports = configure(function (/* ctx */) {
     build: {
       target: {
         // browser: [ 'es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1' ],
-        browser: [ 'es2022', 'chrome87', 'safari13.1' ],
+        browser: [ 'es2022' ],
         node: 'node16',
         devtool: 'source-map'
       },
@@ -94,6 +95,7 @@ module.exports = configure(function (/* ctx */) {
       config: {},
 
       // iconSet: 'material-icons', // Quasar icon set
+      // iconSet: 'fontawesome-v6', // Quasar icon set
       // lang: 'en-US', // Quasar language pack
 
       // For special cases outside of where the auto-import strategy can have an impact

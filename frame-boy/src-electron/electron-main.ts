@@ -1,8 +1,8 @@
-import { app, BrowserWindow, ipcMain, nativeTheme } from 'electron';
-import { initialize, enable } from '@electron/remote/main';
+import { app, nativeTheme } from 'electron';
+import { initialize } from '@electron/remote/main';
 import path from 'path';
 import os from 'os';
-import { addModulesToIpcMain } from './modules';
+import { createWindow, mainWindow } from './electron-main-window';
 
 console.log('APPDATA PATH: ' + app.getPath('appData'));
 
@@ -19,45 +19,6 @@ try {
 
 initialize();
 
-let mainWindow: BrowserWindow | undefined;
-
-function createWindow() {
-    /**
-     * Initial window options
-     */
-    mainWindow = new BrowserWindow({
-        icon: path.resolve(__dirname, 'icons/icon.png'), // tray icon
-        width: 1000,
-        height: 600,
-        useContentSize: true,
-        webPreferences: {
-            // contextIsolation: true,
-            // More info: https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/electron-preload-script
-            preload: path.resolve(__dirname, process.env.QUASAR_ELECTRON_PRELOAD),
-            // sandbox: false
-        },
-    });
-
-    // Add main thread modules to ipcMain
-    addModulesToIpcMain();
-
-    mainWindow.loadURL(process.env.APP_URL);
-
-    if (process.env.DEBUGGING) {
-        // if on DEV or Production with debug enabled
-        mainWindow.webContents.openDevTools();
-    } else {
-        // we're on production; no access to devtools pls
-        mainWindow.webContents.on('devtools-opened', () => {
-            mainWindow?.webContents.closeDevTools();
-        });
-    }
-
-    mainWindow.on('closed', () => {
-        mainWindow = undefined;
-    });
-}
-
 app.whenReady().then(createWindow);
 
 app.on('window-all-closed', () => {
@@ -66,9 +27,9 @@ app.on('window-all-closed', () => {
     }
 });
 
-app.on('activate', () => {
+app.on('activate', async() => {
     if (mainWindow === undefined) {
-        createWindow();
+        await createWindow();
     }
 });
 

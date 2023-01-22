@@ -1,6 +1,8 @@
 <template>
 <div class="application-footer">
-    <div class="space left-space"></div>
+    <div class="space left-space">
+        <fa icon="gear"></fa>
+    </div>
     <nav>
         <router-link to="/settings">Settings</router-link>
         <router-link to="/">Home</router-link>
