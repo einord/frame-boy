@@ -3,9 +3,9 @@
         <fa v-if="icon != null" :icon="icon"></fa>
         <slot></slot>
     </button>
-    </template>
-    
-    <script setup lang="ts">
+</template>
+
+<script setup lang="ts">
     withDefaults(defineProps<{
         transparent?: boolean;
         activated?: boolean;
@@ -14,10 +14,9 @@
         transparent: false,
         activated: false
     });
-    
-    </script>
-    
-    <style lang="scss" scoped>
+</script>
+
+<style lang="scss" scoped>
     .normal-button {
         display: inline-flex;
         color: $color-light;

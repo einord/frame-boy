@@ -3,14 +3,15 @@ import { RouteRecordRaw } from 'vue-router';
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: () => import('pages/dashboard.vue'),
+    component: () => import('../views/dashboard.vue'),
   },
-
-  // Always leave this as last one,
-  // but you can also remove it
   {
-    path: '/:catchAll(.*)*',
-    component: () => import('pages/ErrorNotFound.vue'),
+    path: '/settings',
+    component: () => import('../views/settings.vue'),
+  },
+  {
+    path: '/settings/general',
+    component: () => import('../views/settings/general.vue'),
   },
 ];
 

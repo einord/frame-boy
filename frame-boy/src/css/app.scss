@@ -42,3 +42,8 @@ body {
         flex: 1;
     }
 }
+
+h1 {
+    font-size: $font-size-header;
+    font-weight: bold;
+}
