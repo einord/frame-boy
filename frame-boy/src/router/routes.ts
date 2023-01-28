@@ -13,6 +13,10 @@ const routes: RouteRecordRaw[] = [
     path: '/settings/general',
     component: () => import('../views/settings/general.vue'),
   },
+  {
+    path: '/settings/dashboard',
+    component: () => import('../views/settings/dashboard.vue'),
+  },
 ];
 
 export default routes;
