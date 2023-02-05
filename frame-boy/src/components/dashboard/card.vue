@@ -15,6 +15,7 @@ withDefaults(defineProps<{
 <style lang="scss" scoped>
 .card {
     background-color: transparent;
+    overflow: hidden;
 
     &.edit-mode {
         outline: 2px dashed hsla(100, 100%, 100%, 10%);

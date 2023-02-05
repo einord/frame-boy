@@ -1,5 +1,5 @@
 <template>
-    <dashboard :edit-mode="true" />
+    <dashboard edit-mode />
 </template>
 
 <script setup lang="ts">

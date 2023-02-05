@@ -24,7 +24,8 @@ module.exports = configure(function (/* ctx */) {
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
     boot: [
       'i18n',
-      'fa'
+      'fa',
+      'extensions'
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
@@ -55,6 +56,7 @@ module.exports = configure(function (/* ctx */) {
       },
 
       vueRouterMode: 'hash', // available values: 'hash', 'history'
+      vueCompiler: true,
       // vueRouterBase,
       // vueDevtools,
       // vueOptionsAPI: false,

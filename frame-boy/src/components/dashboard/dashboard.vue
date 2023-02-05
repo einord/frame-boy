@@ -1,13 +1,16 @@
 <template>
     <div ref="dashboardElement" class="dashboard" @mousemove.passive="onMouseMove" @touchmove="onMouseMove" @touchend="onMouseUp" @mouseup.passive="onMouseUp" @mouseleave.passive="onMouseUp">
         <card class="test1" :edit-mode="editMode" @touchstart="onMouseDown" @mousedown.passive="onMouseDown">This a test card</card>
-        <card class="test2" :edit-mode="editMode" @touchstart="onMouseDown" @mousedown.passive="onMouseDown">I'm also a test card</card>
+        <card class="test2" :edit-mode="editMode" @touchstart="onMouseDown" @mousedown.passive="onMouseDown">
+            <component :is="CurrentTime" :edit-mode="editMode" />
+        </card>
     </div>
     </template>
     
     <script setup lang="ts">
     import { computed, onMounted, ref } from 'vue';
     import Card from './card.vue';
+    import CurrentTime from '/src/components/extensions/current-time';
 
     const props = withDefaults(defineProps<{
         editMode?: boolean;
