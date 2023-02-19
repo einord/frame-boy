@@ -10,7 +10,7 @@
         "build": "tsc",
         "preview": "vite preview",
         "electron:start": "electron .",
-        "start": "nodemon --exec npm run electron:start"
+        "watch": "nodemon --exec npm run electron:start"
     },
     "devDependencies": {
         "@vitejs/plugin-vue": "^4.0.0",
