@@ -1,5 +1,6 @@
-import { app, BrowserWindow } from "electron";
-import path from "path";
+// @ts-ignore
+const { app, BrowserWindow } = require("electron");
+const path = require("path");
 
 function createWindow() {
     const win = new BrowserWindow({
