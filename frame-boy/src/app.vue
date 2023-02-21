@@ -1,5 +1,7 @@
 <template>
-    <router-view class="content" />
+    <div class="content">
+        <router-view />
+    </div>
     <application-footer />
 </template>
 

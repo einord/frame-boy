@@ -1,30 +1,29 @@
 <template>
-<div class="application-footer" v-if="customMenu == null">
+<div class="application-footer application-footer-sub-menu custom-menu">
     <div class="space left-space">
-        <router-link to="/settings">
-            <normal-button icon="gear" transparent />
-        </router-link>
+        <normal-button icon="arrow-left" transparent @click="menuGoBack" />
     </div>
     <nav>
-        <router-link to="/">
-            <normal-button class="default" icon="home" transparent />
-        </router-link>
+        <slot></slot>
     </nav>
-    <div class="space right-space">
-        <!-- Frame Boy &copy; {{ new Date().getFullYear() }} -->
-    </div>
 </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import NormalButton from "@/components/common/normal-button.vue";
+import NormalButton from '@/components/common/normal-button.vue'
 
-const customMenu = ref<any[]>();
+const menuGoBack = () => {
+    window.history.back()
+}
+
 </script>
 
 <style lang="scss" scoped>
-.application-footer {
+.application-footer-sub-menu {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
@@ -33,6 +32,7 @@ const customMenu = ref<any[]>();
     margin: 0;
     padding-bottom: 0.25em;
     font-size: $font-size-normal;
+    background-color: $application-background-color;
     height: $footer-height;
     overflow: hidden;
 
@@ -44,8 +44,14 @@ const customMenu = ref<any[]>();
         display: flex;
         flex-direction: row;
         gap: 0.5em;
-        
-        > a {
+
+        :deep(a) {
+            color: $color-text;
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+            border-radius: $border-radius;
+            padding: 0.25em 0.5em;
+
             > .default {
                 font-size: $font-size-large;
             }

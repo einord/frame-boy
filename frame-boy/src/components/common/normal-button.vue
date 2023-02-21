@@ -27,19 +27,24 @@
         padding: $spacing-small $spacing-medium;
         gap: $spacing-small;
         border: 2px solid transparent;
+        background-color: $color-button-background;
     
         &.transparent {
             background-color: transparent;
+
+            > svg {
+                color: $color-grey;
+            }
         }
     
         &.activated {
-            background-color: $color-grey;
+            background-color: $color-text;
         }
     
         > svg {
             height: 1.25em;
             width: 1.25em;
-            color: $color-grey;
+            color: $color-text;
         }
     }
     </style>
