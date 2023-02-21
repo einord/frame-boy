@@ -44,7 +44,7 @@ const routeToLink = () => {
     grid-template-rows: 1fr 1fr;
     width: fit-content;
     align-items: center;
-    color: $color-light;
+    color: $color-text;
     border: none;
     border-radius: $border-radius;
     padding: $spacing-small $spacing-medium;

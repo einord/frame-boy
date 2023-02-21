@@ -19,7 +19,7 @@
 <style lang="scss" scoped>
     .normal-button {
         display: inline-flex;
-        color: $color-light;
+        color: $color-text;
         border: none;
         align-items: center;
         justify-content: center;

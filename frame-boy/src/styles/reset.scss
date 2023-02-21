@@ -15,25 +15,13 @@ body {
     -moz-osx-font-smoothing: grayscale;
 
     background-color: $application-background-color;
-    color: $text-color;
+    color: $color-text;
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-}
-
-#app {
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-    flex-direction: column;
-
-    > .content {
-        flex: 1;
-    }
 }
 
 h1 {

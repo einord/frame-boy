@@ -1,6 +1,6 @@
 // Available colors
-$color-primary: #F5B96C;
-$color-secondary: #4378BD;
+$color-primary: #4378BD;
+$color-secondary: #F5B96C;
 $color-accent: #62B365;
 
 $color-dark: #3b3b3b;
@@ -20,7 +20,7 @@ $color-warning: #F5B96C;
 // Color usage
 /** Used for the page background */
 $application-background-color: $color-black;
-$text-color: $color-light; // TODO: Make text color dynamic
+$color-text: $color-light; // TODO: Make text color dynamic
 $text-color-hover: $color-white; // TODO: Make text color dynamic
 
 $hover-background: $color-grey-dark;
