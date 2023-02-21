@@ -1,0 +1,49 @@
+{
+    "name": "frame-boy",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "main": "./electron/main.ts",
+    "author": "plik",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc",
+        "preview": "vite preview",
+        "electron:start": "electron .",
+        "watch": "nodemon --exec npm run electron:start"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-vue": "^4.0.0",
+        "electron": "^22.2.0",
+        "typescript": "^4.9.3",
+        "vite": "^4.1.0",
+        "vue-tsc": "^1.0.24",
+        "nodemon": "^2.0.20"
+    },
+    "build": {
+        "appId": "com.frame-boy.app",
+        "productName": "Frame Boy",
+        "copyright": "Copyright © 2022 ${author}",
+        "publish": [
+            {
+                "provider": "github",
+                "owner": "Bible-Projects"
+            }
+        ],
+        "nsis": {
+            "oneClick": true,
+            "allowToChangeInstallationDirectory": false,
+            "deleteAppDataOnUninstall": true
+        },
+        "files": [
+            "dist/**/*"
+        ],
+        "extraResources": [
+            "defaults/**/*"
+        ],
+        "directories": {
+            "buildResources": "assets",
+            "output": "dist_electron"
+        }
+    }
+}

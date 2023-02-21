@@ -1,0 +1,27 @@
+// Available colors
+$color-primary: #4378BD;
+$color-secondary: #F5B96C;
+$color-accent: #62B365;
+
+$color-dark: #3b3b3b;
+$color-black: #000000;
+
+$color-grey: hsl(0, 0%, 50%);
+$color-grey-dark: hsl(0, 0%, 20%);
+
+$color-light: #f0f0f0;
+$color-white: #ffffff;
+
+$color-positive: #62B365;
+$color-negative: #D55369;
+$color-info: #7a7a7a;
+$color-warning: #F5B96C;
+
+// Color usage
+/** Used for the page background */
+$application-background-color: $color-black;
+$color-text: $color-light; // TODO: Make text color dynamic
+$text-color-hover: $color-white; // TODO: Make text color dynamic
+
+$hover-background: $color-grey-dark;
+$color-button-background: $color-primary;
