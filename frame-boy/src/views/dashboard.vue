@@ -13,6 +13,5 @@ import Dashboard from '@/components/dashboard/dashboard.vue';
 
 <style lang="scss" scoped>
 .dashboard {
-
 }
 </style>

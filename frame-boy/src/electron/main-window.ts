@@ -1,5 +1,5 @@
 import { BrowserWindow } from 'electron';
-import path from 'path';
+// import path from 'path';
 import { addModulesToIpcMain } from './modules';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import { appSettingsService } from './modules/app-settings';
@@ -38,7 +38,7 @@ export async function createWindow() {
             nodeIntegration: (process.env
                 .ELECTRON_NODE_INTEGRATION as unknown) as boolean,
             contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
-            preload: path.join(__dirname, "preload.ts")
+            // preload: path.join(__dirname, "electron/preload.js")
         }
     })
 
