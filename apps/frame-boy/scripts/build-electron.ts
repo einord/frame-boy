@@ -10,7 +10,7 @@ async function bundle() {
     outfile: resolve('electron/main/index.cjs'),
     format: 'cjs',
     sourcemap: true,
-    external: ['electron']
+    external: ['electron'],
   })
 
   await build({
@@ -21,7 +21,7 @@ async function bundle() {
     outfile: resolve('electron/preload/index.cjs'),
     format: 'cjs',
     sourcemap: true,
-    external: ['electron']
+    external: ['electron'],
   })
 }
 

@@ -6,7 +6,10 @@ node_modules/
 # Build artifacts
 apps/frame-boy/electron/main/*.cjs
 apps/frame-boy/electron/preload/*.cjs
+apps/frame-boy/electron/**/*.cjs.map
 apps/frame-boy/renderer/.output/
+apps/frame-boy/.nuxt/
+apps/frame-boy/.output/
 dist/
 
 # Logs & temp

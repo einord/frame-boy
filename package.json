@@ -8,7 +8,9 @@
     "dev": "pnpm --filter frame-boy-app dev",
     "build:renderer": "pnpm --filter frame-boy-app build:renderer",
     "build:electron": "pnpm --filter frame-boy-app build:electron",
-    "dist": "pnpm --filter frame-boy-app dist"
+    "dist": "pnpm --filter frame-boy-app dist",
+    "lint": "pnpm --filter frame-boy-app lint",
+    "lint:fix": "pnpm --filter frame-boy-app lint:fix"
   },
   "packageManager": "pnpm@8.15.4",
   "license": "MIT",

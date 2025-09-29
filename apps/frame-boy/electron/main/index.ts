@@ -14,8 +14,8 @@ async function createMainWindow() {
     frame: false,
     webPreferences: {
       contextIsolation: true,
-      preload: path.join(__dirname, '../preload/index.cjs')
-    }
+      preload: path.join(__dirname, '../preload/index.cjs'),
+    },
   })
 
   if (isDevelopment) {
