@@ -1,0 +1,24 @@
+{
+  "name": "frame-boy",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Workspace for Frame Boy home hub application",
+  "author": "",
+  "scripts": {
+    "dev": "pnpm --filter frame-boy-app dev",
+    "build:renderer": "pnpm --filter frame-boy-app build:renderer",
+    "build:electron": "pnpm --filter frame-boy-app build:electron",
+    "dist": "pnpm --filter frame-boy-app dist"
+  },
+  "packageManager": "pnpm@8.15.4",
+  "license": "MIT",
+  "pnpm": {
+    "packageExtensions": {
+      "electron-store@*": {
+        "dependencies": {
+          "conf": "^12.0.1"
+        }
+      }
+    }
+  }
+}

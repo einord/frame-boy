@@ -36,7 +36,7 @@
 ```
 
 ## Phase 3.1: Setup
-- [ ] T001 Initialize pnpm workspace + Electron/Nuxt scaffold in `apps/frame-boy/package.json` and `apps/frame-boy/nuxt.config.ts` (follow plan.md Technical Context).
+- [X] T001 Initialize pnpm workspace + Electron/Nuxt scaffold in `apps/frame-boy/package.json` and `apps/frame-boy/nuxt.config.ts` (follow plan.md Technical Context).
 - [ ] T002 Configure linting/formatting (ESLint, Prettier, TypeScript config) across repo (`package.json`, `.eslintrc.cjs`, `.prettierrc`) ensuring CI compatibility.
 - [ ] T003 Create baseline build pipeline configs (`build/builders/electron-builder.{yml,json}`) for macOS, Windows, Raspberry Pi (research.md Cross-Platform Build Pipeline).
 

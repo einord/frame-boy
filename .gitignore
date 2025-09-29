@@ -1,0 +1,30 @@
+# Node & pnpm
+node_modules/
+.pnpm-store/
+.pnpm-home/
+
+# Build artifacts
+apps/frame-boy/electron/main/*.cjs
+apps/frame-boy/electron/preload/*.cjs
+apps/frame-boy/renderer/.output/
+dist/
+
+# Logs & temp
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+
+# Local env
+.env*
+
+# Playwright/Vitest
+playwright-report/
+.vitest/
+
+# pnpm metadata
+pnpm-lock.yaml
